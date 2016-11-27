@@ -1,3 +1,3 @@
-print("Hello world")
-print("Evrerybody do the FLOP!")
+print("Hello world;")
+print("Evrerybody do the FLOP!;")
 print("Flop flop")
