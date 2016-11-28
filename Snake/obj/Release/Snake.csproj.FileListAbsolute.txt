@@ -1,0 +1,5 @@
+G:\Github\MySnake\Snake\bin\Release\Snake.exe.config
+G:\Github\MySnake\Snake\bin\Release\Snake.exe
+G:\Github\MySnake\Snake\bin\Release\Snake.pdb
+G:\Github\MySnake\Snake\obj\Release\Snake.exe
+G:\Github\MySnake\Snake\obj\Release\Snake.pdb
