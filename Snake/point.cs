@@ -37,7 +37,8 @@ namespace Snake
         }
         public void Draw()
         {
-            if  (x==0 | y == 0)
+           
+            if  (x <= 0 | y <= 0)
             {
                 Environment.Exit(0);
             }
@@ -46,6 +47,17 @@ namespace Snake
                 Console.SetCursorPosition(x, y);
                 Console.Write(sym);
             }
+            
+        }
+        public void Draw(int x, int y)
+        {
+            Console.SetCursorPosition(x, y);
+            Console.Write(sym);
+        }
+        public void Draw(int x, int y, char sym)
+        {
+            Console.SetCursorPosition(x, y);
+            Console.Write(sym);
         }
         public point(point p)
         {
@@ -58,6 +70,11 @@ namespace Snake
             sym = ' ';
             Draw();
         }
+        public void Clear(char _sym)
+        {
+            sym = _sym;
+            Draw();
+        }
         public void Move(int offset, Direction direction)
         {
             if (direction == Direction.RIGHT)
@@ -68,16 +85,6 @@ namespace Snake
                 y -= offset;
             else if (direction == Direction.DOWN)
                 y += offset;
-        }
-        public void Draw(int x, int y)
-        {
-            Console.SetCursorPosition(x, y);
-            Console.Write(sym);
-        }
-        public void Draw(int x, int y, char sym)
-        {
-            Console.SetCursorPosition(x, y);
-            Console.Write(sym);
         }
         public bool IsHit(point item)
         {

@@ -9,10 +9,12 @@ namespace Snake
     class Figure
     {
         protected List<point> ll;
-        public void Draw()
+        public virtual void Draw()
         {
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
             foreach (point p in ll)
-                p.Draw(p.x, p.y);
+                p.Draw();
+            Console.ForegroundColor = ConsoleColor.White;
         }
     }
 }
