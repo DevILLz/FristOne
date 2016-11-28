@@ -7,18 +7,19 @@ using System.Threading.Tasks;
 
 namespace Snake
 {
-    class Snake : Figure
+    class Snake
     {
-        int lenght;
+        public List<point> ll;
+        public int lenght;
         private Direction direction;
         public Snake(point tail, int lenght, Direction _direction)
         {
             this.lenght = lenght;
             direction = _direction;
             ll = new List<point>();
-            for (int i = 0; i < lenght; i++)
-            { 
-                point p = new point(26, 5, tail.sym);
+            for (int i = 0; i <= lenght; i++)
+            {
+                point p = new point(tail.x, tail.y, tail.sym);
                 p.Move(i, direction);
                 ll.Add(p);
             }
@@ -28,54 +29,57 @@ namespace Snake
             point head = GetNextPoint();
             if (head.IsHit(food))
             {
-                head.Draw(head.x, head.y, '0');
-                food.sym = head.sym;
-                ll.Add(food);
-                lenght++;
+                ll.Insert(0, food);
                 return true;
             }
             else return false;
         }
 
-        public void choicedirection(Snake snake)
+        public void choicedirection()
         {
             if (Console.KeyAvailable)
             {
-                Direction last = snake.direction;
+                Direction last = direction;
                 ConsoleKeyInfo key = Console.ReadKey(true);
                 if (key.Key == ConsoleKey.LeftArrow)
                 {
-                    if (last == Direction.RIGHT) snake.direction = Direction.RIGHT;
-                    else snake.direction = Direction.LEFT;
+                    if (last == Direction.RIGHT) direction = Direction.RIGHT;
+                    else direction = Direction.LEFT;
                 }
                 if (key.Key == ConsoleKey.RightArrow)
                 {
-                    if (last == Direction.LEFT) snake.direction = Direction.LEFT;
-                    else snake.direction = Direction.RIGHT;
+                    if (last == Direction.LEFT) direction = Direction.LEFT;
+                    else direction = Direction.RIGHT;
                 }
                 if (key.Key == ConsoleKey.UpArrow)
                 {
-                    if (last == Direction.DOWN) snake.direction = Direction.DOWN;
-                    else snake.direction = Direction.UP;
+                    if (last == Direction.DOWN) direction = Direction.DOWN;
+                    else direction = Direction.UP;
                 }
                 if (key.Key == ConsoleKey.DownArrow)
                 {
-                    if (last == Direction.UP) snake.direction = Direction.UP;
-                    else snake.direction = Direction.DOWN;
+                    if (last == Direction.UP) direction = Direction.UP;
+                    else direction = Direction.DOWN;
                 }
             }
         }
 
-        internal void Move(Snake snake)
+        internal void Move(int x)
         {
             point tail = ll.First();
             ll.Remove(tail);
             point head = GetNextPoint();
             ll.Add(head);
             tail.Clear();
+            Console.ForegroundColor = ConsoleColor.Magenta;
             head.Draw();
-            if(snake.direction == Direction.UP | snake.direction == Direction.DOWN) Thread.Sleep(150);
-            else Thread.Sleep(100);
+            Console.ForegroundColor = ConsoleColor.White;
+            if (direction == Direction.UP || direction == Direction.DOWN)
+            {
+                if (x == 20) Thread.Sleep(x + 20);
+                else Thread.Sleep(x + 50);
+            }
+            else Thread.Sleep(x);
         }
         private point GetNextPoint()
         {
@@ -83,6 +87,23 @@ namespace Snake
             point NextPoint = new point(head);
             NextPoint.Move(1, direction);
             return NextPoint;
+        }
+        public void Draw()
+        {
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            foreach (point p in ll)
+                p.Draw();
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+        public bool IsHitYouSelf()
+        {
+            point head = GetNextPoint();
+            for (int i = ll.Count-1; i >0;i-- )
+                if (head.IsHit(ll[i]))
+                    {
+                       return true;
+                    }
+            return false;
         }
     }
 }

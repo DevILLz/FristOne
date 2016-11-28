@@ -8,8 +8,14 @@ namespace Snake
 {
     class Arena : Figure
     {
-        public Arena(int xleft, int xright, int ytop, int ybuttom)
+         int xleft, xright, ytop, ybuttom;
+        public Arena(int xmax, int ymax)
         {
+            Console.SetCursorPosition(25, 5);
+            this.xleft = 25;
+            this.xright = 25+xmax;
+            this.ytop = 5;
+            this.ybuttom = 5+ymax;
             ll = new List<point>();
             for (int y = ytop; y < ybuttom; y++)
             {
@@ -33,6 +39,12 @@ namespace Snake
                 point p = new point(x, ybuttom, '0');
                 ll.Add(p);
             }
+            Draw();
         }
+        public bool IsHit(Snake snake)
+        {
+            return snake.ll[snake.ll.Count-1].x == xleft || snake.ll[snake.ll.Count - 1].y == ytop-1 || snake.ll[snake.ll.Count - 1].x == xright+1 || snake.ll[snake.ll.Count - 1].y == ybuttom;
+        }
+
     }
 }
